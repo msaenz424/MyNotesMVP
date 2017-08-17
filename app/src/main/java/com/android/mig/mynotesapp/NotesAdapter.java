@@ -16,10 +16,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     public NotesAdapter(){
         mNotesList = new ArrayList<>();
-        mNotesList.add("Note Test 1");
-        mNotesList.add("Note Test 2");
-        mNotesList.add("Note Test 3");
-        mNotesList.add("Note Test 4");
     }
 
     public void setNotes(List<String> notes){
