@@ -15,7 +15,7 @@ import com.android.mig.mynotesapp.presenter.NotesPresenterImpl;
 
 import java.util.List;
 
-public class NotesActivity extends AppCompatActivity implements NotesView{
+public class NotesActivity extends AppCompatActivity implements NotesView, NotesAdapter.OnClickHandler{
 
     EditText mNoteEditText;
 
@@ -33,7 +33,7 @@ public class NotesActivity extends AppCompatActivity implements NotesView{
         mNotesRecyclerView = (RecyclerView) findViewById(R.id.notes_recycler_view);
         LinearLayoutManager linearLayout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mNotesRecyclerView.setLayoutManager(linearLayout);
-        mNotesAdapter = new NotesAdapter();
+        mNotesAdapter = new NotesAdapter(this);
         mNotesRecyclerView.setAdapter(mNotesAdapter);
 
         mNotesPresenter = new NotesPresenterImpl(this);
@@ -60,5 +60,15 @@ public class NotesActivity extends AppCompatActivity implements NotesView{
      */
     public void addNote(View view){
         mNotesPresenter.addNote(mNoteEditText.getText().toString());
+    }
+
+    @Override
+    public void onTextClick(String note) {
+        Toast.makeText(this, note, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDeleteClick() {
+        
     }
 }

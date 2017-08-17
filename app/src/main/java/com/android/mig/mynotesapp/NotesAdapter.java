@@ -12,9 +12,11 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder>{
 
+    private OnClickHandler mOnClickHandler;
     private List<String> mNotesList;
 
-    public NotesAdapter(){
+    public NotesAdapter(OnClickHandler onClickHandler){
+        this.mOnClickHandler = onClickHandler;
         mNotesList = new ArrayList<>();
     }
 
@@ -43,7 +45,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         return 0;
     }
 
-    public class NotesViewHolder extends RecyclerView.ViewHolder {
+    public class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView mNoteText;
         private Button mDeleteButton;
@@ -51,7 +53,28 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         public NotesViewHolder(View itemView) {
             super(itemView);
             mNoteText = (TextView) itemView.findViewById(R.id.note_text_view);
+            mNoteText.setOnClickListener(this);
             mDeleteButton = (Button) itemView.findViewById(R.id.delete_button);
+            mDeleteButton.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.note_text_view:
+                    mOnClickHandler.onTextClick(mNoteText.getText().toString());
+                    break;
+                case R.id.delete_button:
+                    mOnClickHandler.onDeleteClick();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public interface OnClickHandler{
+        void onTextClick(String note);
+        void onDeleteClick();
     }
 }
