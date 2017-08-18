@@ -1,6 +1,6 @@
 package com.android.mig.mynotesapp.view;
 
-import java.util.List;
+import android.database.Cursor;
 
 public interface NotesView {
 
@@ -9,7 +9,7 @@ public interface NotesView {
      *
      * @param notes array of notes
      */
-    void showNotes(List<String> notes);
+    void showNotes(Cursor notes);
 
     void showItem(String note);
 

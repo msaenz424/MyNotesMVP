@@ -1,5 +1,6 @@
 package com.android.mig.mynotesapp.view;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +13,6 @@ import com.android.mig.mynotesapp.NotesAdapter;
 import com.android.mig.mynotesapp.R;
 import com.android.mig.mynotesapp.presenter.NotesPresenter;
 import com.android.mig.mynotesapp.presenter.NotesPresenterImpl;
-
-import java.util.List;
 
 public class NotesActivity extends AppCompatActivity implements NotesView, NotesAdapter.OnClickHandler{
 
@@ -40,7 +39,7 @@ public class NotesActivity extends AppCompatActivity implements NotesView, Notes
     }
 
     @Override
-    public void showNotes(List<String> notes) {
+    public void showNotes(Cursor notes) {
         NotesAdapter notesAdapter = (NotesAdapter) mNotesRecyclerView.getAdapter();
         notesAdapter.setNotes(notes);
     }
@@ -69,6 +68,6 @@ public class NotesActivity extends AppCompatActivity implements NotesView, Notes
 
     @Override
     public void onDeleteClick() {
-        
+
     }
 }

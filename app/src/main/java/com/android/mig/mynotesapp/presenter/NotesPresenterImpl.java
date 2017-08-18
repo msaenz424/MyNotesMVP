@@ -1,5 +1,7 @@
 package com.android.mig.mynotesapp.presenter;
 
+import android.content.Context;
+
 import com.android.mig.mynotesapp.model.NotesInteractor;
 import com.android.mig.mynotesapp.model.NotesInteractorImpl;
 import com.android.mig.mynotesapp.view.NotesView;
@@ -11,7 +13,7 @@ public class NotesPresenterImpl implements NotesPresenter, NotesInteractor.OnSav
 
     public NotesPresenterImpl(NotesView notesView){
         this.mNotesView = notesView;
-        this.mNotesInteractor = new NotesInteractorImpl();
+        this.mNotesInteractor = new NotesInteractorImpl((Context) notesView);
     }
 
     @Override

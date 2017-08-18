@@ -1,5 +1,6 @@
 package com.android.mig.mynotesapp;
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,21 +8,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder>{
 
+    private final int NOTE_COLUMN_POSITION = 0;
     private OnClickHandler mOnClickHandler;
-    private List<String> mNotesList;
+    private Cursor mNotesCursor;
 
     public NotesAdapter(OnClickHandler onClickHandler){
         this.mOnClickHandler = onClickHandler;
-        mNotesList = new ArrayList<>();
     }
 
-    public void setNotes(List<String> notes){
-        this.mNotesList = notes;
+    public void setNotes(Cursor notes){
+        this.mNotesCursor = notes;
         notifyDataSetChanged();
     }
 
@@ -34,23 +32,26 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     @Override
     public void onBindViewHolder(NotesViewHolder holder, int position) {
-        holder.mNoteText.setText(mNotesList.get(position));
+        if (mNotesCursor != null) {
+            mNotesCursor.moveToPosition(position);
+            holder.mNoteText.setText(mNotesCursor.getString(NOTE_COLUMN_POSITION));
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (mNotesList != null){
-            return mNotesList.size();
+        if (mNotesCursor != null){
+            return mNotesCursor.getCount();
         }
         return 0;
     }
 
-    public class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView mNoteText;
         private Button mDeleteButton;
 
-        public NotesViewHolder(View itemView) {
+        private NotesViewHolder(View itemView) {
             super(itemView);
             mNoteText = (TextView) itemView.findViewById(R.id.note_text_view);
             mNoteText.setOnClickListener(this);

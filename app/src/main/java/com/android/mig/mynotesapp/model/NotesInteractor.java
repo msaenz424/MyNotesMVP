@@ -1,6 +1,6 @@
 package com.android.mig.mynotesapp.model;
 
-import java.util.List;
+import android.database.Cursor;
 
 public interface NotesInteractor {
 
@@ -12,11 +12,11 @@ public interface NotesInteractor {
     }
 
     /**
-     * Return data from data source
+     * Returns data from data source
      *
-     * @return list array of strings
+     * @return a cursor
      */
-    List<String> getNotes();
+    Cursor getNotes();
 
     /**
      * Saved a Note into the data source
