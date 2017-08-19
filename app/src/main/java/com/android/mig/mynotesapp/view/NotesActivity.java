@@ -36,6 +36,7 @@ public class NotesActivity extends AppCompatActivity implements NotesView, Notes
         mNotesRecyclerView.setAdapter(mNotesAdapter);
 
         mNotesPresenter = new NotesPresenterImpl(this);
+        mNotesPresenter.loadNotes();
     }
 
     @Override

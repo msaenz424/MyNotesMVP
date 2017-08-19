@@ -22,6 +22,11 @@ public class NotesPresenterImpl implements NotesPresenter, NotesInteractor.OnSav
     }
 
     @Override
+    public void loadNotes() {
+        mNotesView.showNotes(mNotesInteractor.getNotes());
+    }
+
+    @Override
     public void addNote(String note) {
         mNotesInteractor.saveNote(this, note);
     }
