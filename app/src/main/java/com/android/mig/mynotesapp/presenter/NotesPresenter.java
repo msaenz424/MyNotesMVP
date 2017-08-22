@@ -7,4 +7,6 @@ public interface NotesPresenter {
     void loadNotes();
 
     void addNote(String note);
+
+    void deleteNote(String id);
 }

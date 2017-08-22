@@ -6,7 +6,7 @@ import com.android.mig.mynotesapp.model.NotesInteractor;
 import com.android.mig.mynotesapp.model.NotesInteractorImpl;
 import com.android.mig.mynotesapp.view.NotesView;
 
-public class NotesPresenterImpl implements NotesPresenter, NotesInteractor.OnSaveFinishedListener{
+public class NotesPresenterImpl implements NotesPresenter, NotesInteractor.OnTransactionFinishedListener{
 
     private NotesView mNotesView;
     private NotesInteractor mNotesInteractor;
@@ -32,8 +32,12 @@ public class NotesPresenterImpl implements NotesPresenter, NotesInteractor.OnSav
     }
 
     @Override
+    public void deleteNote(String id) {
+        mNotesInteractor.deleteNote(this, id);
+    }
+
+    @Override
     public void onSuccess() {
         mNotesView.showNotes(mNotesInteractor.getNotes());
-        mNotesView.onAddedNoted();
     }
 }

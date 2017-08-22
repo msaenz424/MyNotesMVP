@@ -7,7 +7,7 @@ public interface NotesInteractor {
     /**
      * Callback to handle responses from data source transactions
      */
-    interface OnSaveFinishedListener{
+    interface OnTransactionFinishedListener{
         void onSuccess();
     }
 
@@ -19,10 +19,18 @@ public interface NotesInteractor {
     Cursor getNotes();
 
     /**
-     * Saved a Note into the data source
+     * Save a Note into the data source
      *
-     * @param onSaveFinishedListener    callback object
-     * @param note                      data to be inserted into data source
+     * @param onTransactionFinishedListener    callback object
+     * @param note                             data to be inserted into data source
      */
-    void saveNote(OnSaveFinishedListener onSaveFinishedListener, String note);
+    void saveNote(OnTransactionFinishedListener onTransactionFinishedListener, String note);
+
+    /**
+     * Delete a single row from data source
+     *
+     * @param onTransactionFinishedListener     callback object
+     * @param id                                note id
+     */
+    void deleteNote(OnTransactionFinishedListener onTransactionFinishedListener, String id);
 }

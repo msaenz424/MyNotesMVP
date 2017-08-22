@@ -11,10 +11,4 @@ public interface NotesView {
      */
     void showNotes(Cursor notes);
 
-    void showItem(String note);
-
-    /**
-     * Called after a Note was added to the List
-     */
-    void onAddedNoted();
 }

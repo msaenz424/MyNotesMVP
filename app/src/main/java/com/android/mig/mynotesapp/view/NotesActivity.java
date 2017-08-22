@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.mig.mynotesapp.NotesAdapter;
 import com.android.mig.mynotesapp.R;
 import com.android.mig.mynotesapp.presenter.NotesPresenter;
 import com.android.mig.mynotesapp.presenter.NotesPresenterImpl;
@@ -46,13 +45,13 @@ public class NotesActivity extends AppCompatActivity implements NotesView, Notes
     }
 
     @Override
-    public void showItem(String note) {
-
+    public void onTextClick(String note) {
+        Toast.makeText(this, note, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onAddedNoted() {
-        mNoteEditText.setText("");
+    public void onDeleteClick(String id) {
+        mNotesPresenter.deleteNote(id);
     }
 
     /**
@@ -60,15 +59,7 @@ public class NotesActivity extends AppCompatActivity implements NotesView, Notes
      */
     public void addNote(View view){
         mNotesPresenter.addNote(mNoteEditText.getText().toString());
+        mNoteEditText.setText("");
     }
 
-    @Override
-    public void onTextClick(String note) {
-        Toast.makeText(this, note, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onDeleteClick() {
-
-    }
 }

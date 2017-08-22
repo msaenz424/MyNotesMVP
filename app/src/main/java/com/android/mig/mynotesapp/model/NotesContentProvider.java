@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import static android.provider.BaseColumns._ID;
 import static com.android.mig.mynotesapp.model.NotesContract.NotesEntry.TABLE_NOTES;
 
 public class NotesContentProvider extends ContentProvider {
@@ -93,8 +94,22 @@ public class NotesContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        final SQLiteDatabase db = mNotesDBHelper.getWritableDatabase();
+        int rowsDeleted;
+        switch (sUriMatcher.match(uri)){
+            case NOTES_WITH_ID:
+                String id = uri.getPathSegments().get(1);   // get(1) gets the segment next to "notes"
+                rowsDeleted = db.delete(TABLE_NOTES, _ID + "=?", new String[]{id});
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri);
+        }
+
+        if (rowsDeleted != 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsDeleted;
     }
 
     @Override

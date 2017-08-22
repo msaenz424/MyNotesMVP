@@ -1,4 +1,4 @@
-package com.android.mig.mynotesapp;
+package com.android.mig.mynotesapp.view;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.mig.mynotesapp.R;
+
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder>{
 
-    private final int NOTE_COLUMN_POSITION = 0;
+    private final int ID_COLUMN_POSITION = 0;
+    private final int NOTE_COLUMN_POSITION = 1;
     private OnClickHandler mOnClickHandler;
     private Cursor mNotesCursor;
 
@@ -66,7 +69,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
                     mOnClickHandler.onTextClick(mNoteText.getText().toString());
                     break;
                 case R.id.delete_button:
-                    mOnClickHandler.onDeleteClick();
+                    mNotesCursor.moveToPosition(getAdapterPosition());
+                    mOnClickHandler.onDeleteClick(mNotesCursor.getString(ID_COLUMN_POSITION));
                     break;
                 default:
                     break;
@@ -76,6 +80,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     public interface OnClickHandler{
         void onTextClick(String note);
-        void onDeleteClick();
+        void onDeleteClick(String id);
     }
 }
